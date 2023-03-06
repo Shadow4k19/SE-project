@@ -1,13 +1,71 @@
-body {
+*{
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html, body{
+  position:fixed;
+  width: 200vh;
+}
+body{
+  padding-top: 79px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:  45px;
+  color: #fff;
+}
+
+.main{
+  height: 100vh;
+}
+
+.sidebar{
+  width: 17%;
+  background-color: rgba(22, 22, 22, 1);
+  height: auto;
+  overflow: auto;
+}
+
+.sidebar-data{
+  padding: .75em 1em;
+  display: block;
+  transition:.15s;
+  border-radius: 5px;
+}
+.sidebar-data:hover{
+  background-color: rgba(255, 255, 255, .1);
+}
+
+.sidebar-title{
+  display: flex;
+  font-size: 23px;
+  justify-content: space-between;
+}
+.sidebar-title span i{
+  display: inline-block;
+  width: 1.5em;
+}
+.sidebar-content{
+  padding-top: .25em;
+  height: 0;
+  overflow: hidden;
+}
+.sidebar-data.open > .sidebar-content{
+  height: auto;
+}
+
+.sidebar-data.plain{
+  color: #fff;
+  text-decoration: none;
+}
+.sidebar-data.plain:hover{
+  text-decoration: underline;
+}
+.sidebar-data.plain i{
+  display: inline-block;
+  width: 1.7em;
+}
+img{
+  display: flex;
+  width: auto;
 }
