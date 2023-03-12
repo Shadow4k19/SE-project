@@ -9,7 +9,7 @@ html, body{
   width: 200vh;
 }
 body{
-  padding-top: 79px;
+  padding-top: 75px;
   font-family: Arial, Helvetica, sans-serif;
   font-size:  45px;
   color: #fff;
@@ -18,7 +18,6 @@ body{
 .main{
   height: 100vh;
 }
-
 .sidebar{
   width: 17%;
   background-color: rgba(22, 22, 22, 1);
@@ -38,7 +37,7 @@ body{
 
 .sidebar-title{
   display: flex;
-  font-size: 23px;
+  font-size: 22 px;
   justify-content: space-between;
 }
 .sidebar-title span i{

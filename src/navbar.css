@@ -17,12 +17,13 @@ header{
 }
 
 .logo{
-    padding-left: 45%;
+    padding-left: 39%;
     font-size: 1em;
     color:#fff;
 }
 
 .btnLogin{
+    padding: 10px;
     width: 130px;
     height: 50px;
     background: transparent;
