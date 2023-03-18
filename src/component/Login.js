@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../login.css";
 
 export default function Login() {
   const [showLogin, setShowLogin] = useState(true);
+  const [statuslogin,setstatuslogin] = useState("");
 
   const toggleForm = () => {
     setShowLogin((prevShowLogin) => !prevShowLogin);
@@ -15,6 +17,8 @@ export default function Login() {
     email: "",
   });
 
+  const navigate = useNavigate(); // Create history object
+
   const submitFormLogin = (e) => {
     e.preventDefault();
     const sendData = {
@@ -25,7 +29,17 @@ export default function Login() {
     axios
       .post("http://localhost/php-react/Login-and-Register/Login.php", sendData)
       .then((response) => {
-        console.log(response.data);
+        //console.log(typeof(response.data));
+        //console.log(response.data);
+        if(response.data === 200){ 
+          alert("Login successful");
+          setstatuslogin("Login successful");
+          console.log(statuslogin);
+          navigate(`/`);
+        } else {
+          console.log(typeof(response.data));
+          alert("Wrong Username or Password"); 
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -35,27 +49,22 @@ export default function Login() {
   const submitFormRegister = (e) => {
     e.preventDefault();
     const sendData = {
-      username2: data.username,
-      password2: data.password,
-      email2: data.email
+      username: data.username,
+      password: data.password,
+      email: data.email
     };
     console.log(sendData);
     axios
       .post(
         "http://localhost/php-react/Login-and-Register/Register.php",
-        sendData,
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Headers":
-            "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
-            "Access-Control-Allow-Methods": "POST",
-            "Content-Type": "application/json; charset=UTF-8"
-          }
-        }
+        sendData
       )
       .then((response) => {
         console.log(response.data);
+        if(response.data === 201){
+          alert("Registration successful");
+          toggleForm();
+        }
       })
       .catch((error) => {
         console.log(error);

@@ -1,0 +1,84 @@
+table{
+    width: 900px;
+    height: 100px;
+}
+
+.btnadd{
+    padding: 10px;
+    background-color: orange;
+    border: 2px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: #fff;
+    font-weight: 500;
+    margin-left: 40px;
+    transition: .5s;
+    font-size: large;
+    margin-left: 100%;
+}    
+
+.btnadd:hover{
+    background: rgba(0,0,0, .25);
+}
+
+th{
+    border-bottom: 1px solid black;
+    font-size: 25px;
+    color: black;
+}
+    
+td{
+    text-align: center;
+    color: black;
+    font-size: 25px;
+}
+
+.contrainer{
+    position: relative;
+    padding-left: 375px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: black;
+}
+
+.btndel{
+    padding: 10px;
+    background-color: Red;
+    border: 2px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: .5em;
+    color: #fff;
+    font-weight: 500;
+    margin-left: 5px;
+    transition: .5s;
+    font-size: large;
+}    
+
+.btndel:hover{
+    background: rgba(0,0,0, .25);
+}
+
+.btnedit{
+    padding: 10px;
+    background-color: green;
+    border: 2px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: .5em;
+    color: #fff;
+    font-weight: 500;
+    margin-left: 40px;
+    transition: .5s;
+    font-size: large;
+    margin-left: 5%;
+}    
+
+.btnedit:hover{
+    background: rgba(0,0,0, .25);
+}

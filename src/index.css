@@ -68,3 +68,9 @@ img{
   display: flex;
   width: auto;
 }
+
+.h1{
+  color: black;
+  padding-left: 190px;
+  padding-top: 320px;
+}

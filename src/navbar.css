@@ -41,5 +41,10 @@ header{
 
 .btnLogin:hover{
     background: #fff;
-    color: #162938;
+    color: rgba(255, 255, 255, .25);
 }
+
+.Link{
+    color: #fff;
+}
+
