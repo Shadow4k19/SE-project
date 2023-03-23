@@ -6,6 +6,13 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Request-With");
 // Retrieve the username and password from the request body
 $data = json_decode(file_get_contents("php://input"));
+
+if (!$data) {
+    //http_response_code(400); // Bad Request
+    echo json_encode(array("message" => "Missing input"));
+    die();
+}
+
 if(isset($data->username) && isset($data->password)) {
     $username = $data->username;
     $password = $data->password;
@@ -25,11 +32,11 @@ if(isset($data->username) && isset($data->password)) {
         // If a user is found with the provided username and password, return a success response
         if ($stmt->rowCount() > 0) {
             $user = $stmt->fetch();
-            $response = array("success" => true, "message" => "Login successful", "user" => $user);
-            echo json_encode($response);
+            $response = "200";
+            echo $response;
         } else {
-            $response = array("success" => false, "message" => "Invalid username or password");
-            echo json_encode($response);
+            $response = "202";
+            echo $response;
         }
     } catch (PDOException $e) {
         $response = array("success" => false, "message" => "Connection failed: " . $e->getMessage());

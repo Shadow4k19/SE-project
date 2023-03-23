@@ -27,29 +27,25 @@ if(isset($data->username) && isset($data->password) && isset($data->email)) {
     $check_data2->execute();
     $row2 = $check_data2->fetch(PDO::FETCH_ASSOC);
   
-    if($row && $row['email'] == $email){
-      echo json_encode(array("message" => "Email already exists"));
-    }else if($row2 && $row2['username'] == $username){
-      echo json_encode(array("message" => "Username already exists"));
+    if($row == $email){
+      echo "Email Already exists";
+    }else if($row2 == $username){
+      echo "Username already exists";
     }else{
       $passwordHash = password_hash($password, PASSWORD_DEFAULT);
       $stmt = $pdo->prepare("INSERT INTO login (Username, Password, Email) VALUES(:username , :password , :email)");
       $stmt->bindParam(":username", $username);
-
-      //$stmt->bindParam(":password", $passwordHash);
-      /*structure ของ password ใน db มีขนาดแค่ varchar(20) ซึ่งpasswordHashขนาดมันเยอะเกินไป ถ้าจะเก็บเป็นhashแล้วถึงมาแก้hashเช็ครหัสทีหลัง ให้เปลี่ยนประเภทการเก็บข้อมูลเป็น TEXT แทน*/
-
       $stmt->bindParam(":password", $password);
       $stmt->bindParam(":email", $email);
       $stmt->execute();
   
-      echo 201;
+      echo "Sucess";
     }
   }catch(PDOException $e){
     echo json_encode(array("message" => "Failed to register user" ,"error"=> $e));
   }
 } else {
-  $response = array("success" => false, "message" => "Missing username or password or email in request body");
+  $response = array("success" => false, "message" => "Missing username or password or email");
   echo json_encode($response);
 }
 // Close the database connection

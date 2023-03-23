@@ -5,6 +5,8 @@ import Home from './component/Home';
 import Login from './component/Login';
 import Product_management from './component/Product_Management';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+//import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   

@@ -1,12 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
+import User from "./User";
 import { useNavigate } from "react-router-dom";
 import "../login.css";
 
 export default function Login() {
   const [showLogin, setShowLogin] = useState(true);
-  const [statuslogin,setstatuslogin] = useState("");
-
+  const [statuslogin,setstatuslogin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const user = new User();
   const toggleForm = () => {
     setShowLogin((prevShowLogin) => !prevShowLogin);
   };
@@ -29,11 +31,11 @@ export default function Login() {
     axios
       .post("http://localhost/php-react/Login-and-Register/Login.php", sendData)
       .then((response) => {
-        //console.log(typeof(response.data));
-        //console.log(response.data);
         if(response.data === 200){ 
           alert("Login successful");
-          setstatuslogin("Login successful");
+          user.setUsername(data.username);
+          user.setLoginStatus(true);
+          console.log(user.getStatus());
           console.log(statuslogin);
           navigate(`/`);
         } else {
@@ -61,9 +63,16 @@ export default function Login() {
       )
       .then((response) => {
         console.log(response.data);
-        if(response.data === 201){
-          alert("Registration successful");
+        if(response.data === "Sucess"){
           toggleForm();
+          alert("Registration successful");
+          window.location.reload();
+        }else if(response.data === "Email already  exists"){
+          alert("Email already exists");
+        }else if(response.data === "Username already exists"){
+          alert("Username already exists");
+        }else{
+          alert("Email or Username already exists");
         }
       })
       .catch((error) => {

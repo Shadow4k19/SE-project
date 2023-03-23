@@ -4,13 +4,10 @@ import '../navbar.css';
 import Login from "./Login";
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
 
   function checkstatus() {
-    setIsLoggedIn((previsLoggedIn) => !previsLoggedIn);
-    if(isLoggedIn === true){
-      Login.setstatuslogin("");
+    if(Login.user.getStatus() === false){
+      Login.setstatuslogin(true);
     }
   }
 
@@ -18,13 +15,14 @@ export default function Navbar() {
     <div>
       <header>
         <h2 className="logo">ร้านขายของออน์ไลน์</h2>
+        <a href="/product-management">Management</a>
         <nav>
-          {isLoggedIn ? (
-            <button className="btnLogin" onClick={checkstatus}>
+          {Login.statuslogin? (
+            <button className="btnLogin" onChange={checkstatus}>
               Logout
             </button>
           ) : (
-            <button className="btnLogin" onClick={checkstatus}>
+            <button className="btnLogin" onChange={checkstatus}>
               <Link to="/login" className="Link">
                 Login
               </Link>
