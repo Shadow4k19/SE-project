@@ -31,38 +31,32 @@
                     $uploadOk = 1;
                 } else {
                     $error = "File is not an image.";
-                    echo $error;
                     break;
                 }
         
                 if (file_exists($file)) {
                     $error = "File already exists.";
-                    echo $error;
                     break;
                 }
         
                 if ($_FILES['Product_Image']['size'] > 500000) {
                     $error = "File is too large.";
-                    echo $error;
                     break;
                 }
         
-                if($imageFileType != "jpg" && $imageFileType != "png") {
-                    $error = "Only JPG, JPEG, PNG & GIF files are allowed.";
-                    echo $error;
+                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jepg") {
+                    $error = "Only JPG, JPEG, PNG  files are allowed.";
                     break;
                 }
         
                 if ($uploadOk == 0) {
                     $error = "Sorry, your file was not uploaded.";
-                    echo $error;
                     break;
                 } else {
                     if (move_uploaded_file($_FILES['Product_Image']['tmp_name'], $file)) {
                         $imagePath = $file;
                     } else {
                         $error = "Sorry, there was an error uploading your file.";
-                        echo $error;
                         break;
                     }
                 }
@@ -79,25 +73,38 @@
             $response = "Record Successfully";
             echo json_encode($response);
             break;
-        case "PUT":
-            $productdata = json_decode(file_get_contents("php://input"));
-            $product_id = $_GET['Product_ID'];
-            $stmt = $pdo->prepare("UPDATE products SET Product_Name = :name , Product_Price = :price , Product_Remaining = :remain, Product_Image = :image , Product_Detail = :detail WHERE Product_ID = :id");
-            $stmt->bindParam(':price',$productdata->Product_Price);
-            $stmt->bindParam(':name',$productdata->Product_Name);
-            $stmt->bindParam(':detail',$productdata->Product_Detail);
-            $stmt->bindParam(':remain',$productdata->Product_Remaining);
-            $stmt->bindParam(':image',$productdata->Product_Image);
-            $stmt->bindParam(':id', $product_id);
-            $stmt->execute();
-
-            $count = $stmt->rowCount();
-            if($count > 0) {
-                $response = "Record Updated Successfully";
-            } else {
-                $response = "Update Failed";
-            }
-            echo json_encode($response);
-            break;
+            case "PUT":
+                $productdata = json_decode(file_get_contents("php://input"));
+                $product_id = $_GET['Product_ID'];
+                $stmt = $pdo->prepare("UPDATE products SET Product_Name = :name , Product_Price = :price , Product_Remaining = :remain, Product_Image = :image , Product_Detail = :detail WHERE Product_ID = :id");
+                $stmt->bindParam(':name', $productdata->Product_Name);
+                $stmt->bindParam(':price', $productdata->Product_Price);
+                $stmt->bindParam(':remain', $productdata->Product_Remaining);
+                $stmt->bindParam(':image', $productdata->Product_Image);
+                $stmt->bindParam(':detail', $productdata->Product_Detail);
+                $stmt->bindParam(':id', $product_id);
+                $stmt->execute();
+                $count = $stmt->rowCount();
+                if ($count > 0) {
+                  $response = "Record Updated Successfully";
+                } else {
+                  $response = "Update Failed";
+                }
+                echo json_encode($response);
+                break;
+                case "DELETE":
+                    $product_id = $_GET['Product_ID'];
+                    $stmt = $pdo->prepare("DELETE FROM products WHERE Product_ID = :id");
+                    $stmt->bindParam(':id', $product_id);
+                    $stmt->execute();
+                
+                    $count = $stmt->rowCount();
+                    if($count > 0) {
+                        $response = "Record Deleted Successfully";
+                    } else {
+                        $response = "Delete Failed";
+                    }
+                    echo json_encode($response);
+                    break;                
     }
 ?>
