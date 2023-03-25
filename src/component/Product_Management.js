@@ -82,6 +82,7 @@ export default function Product_management() {
         console.log(error);
       });
   };
+  
 
   const handleDelete = (product) => {
     const confirmed = window.confirm(
@@ -105,13 +106,13 @@ export default function Product_management() {
           console.log(error);
         });
     }
-  };
+  };  
 
   useEffect(() => {
     axios
       .get("http://localhost/php-react/React-api/Product.php")
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         setProducts(response.data);
       })
       .catch((error) => {

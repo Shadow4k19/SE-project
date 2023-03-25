@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import '../navbar.css';
+import "../navbar.css";
 import Login from "./Login";
 
 export default function Navbar() {
+  const [statuslogin, setStatusLogin] = useState(false);
 
-  function checkstatus() {
-    if(Login.user.getStatus() === false){
-      Login.setstatuslogin(true);
+  function checkStatus() {
+    if (Login.user.getStatus() === false) {
+      setStatusLogin(true);
+    }else{
+      setStatusLogin(false);
     }
   }
 
@@ -17,16 +20,26 @@ export default function Navbar() {
         <h2 className="logo">ร้านขายของออน์ไลน์</h2>
         <a href="/product-management">Management</a>
         <nav>
-          {Login.statuslogin? (
-            <button className="btnLogin" onChange={checkstatus}>
-              Logout
-            </button>
+          {statuslogin ? (
+            <>
+              <span className="icon">
+                <i class="bi bi-cart"></i>
+              </span>
+              <button className="btnLogin" onClick={checkStatus}>
+                Logout
+              </button>
+            </>
           ) : (
-            <button className="btnLogin" onChange={checkstatus}>
+            <>
+            <span className="icon">
+            <i class="bi bi-cart"></i>
+            </span>
+            <button className="btnLogin" onClick={checkStatus}>
               <Link to="/login" className="Link">
                 Login
               </Link>
             </button>
+            </>
           )}
         </nav>
       </header>

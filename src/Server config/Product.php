@@ -30,43 +30,39 @@
                 if($check !== false) {
                     $uploadOk = 1;
                 } else {
-                    $uploadOk = 0;
-                    $response = "File is not an image.";
-                    echo json_encode($response);
+                    $error = "File is not an image.";
+                    echo $error;
                     break;
                 }
         
                 if (file_exists($file)) {
-                    $uploadOk = 0;
-                    $response = "File already exists.";
-                    echo json_encode($response);
+                    $error = "File already exists.";
+                    echo $error;
                     break;
                 }
         
                 if ($_FILES['Product_Image']['size'] > 500000) {
-                    $uploadOk = 0;
-                    $response = "File is too large.";
-                    echo json_encode($response);
+                    $error = "File is too large.";
+                    echo $error;
                     break;
                 }
         
                 if($imageFileType != "jpg" && $imageFileType != "png") {
-                    $uploadOk = 0;
-                    $response = "Only JPG, JPEG, PNG & GIF files are allowed.";
-                    echo json_encode($response);
+                    $error = "Only JPG, JPEG, PNG & GIF files are allowed.";
+                    echo $error;
                     break;
                 }
         
                 if ($uploadOk == 0) {
-                    $response = "Sorry, your file was not uploaded.";
-                    echo json_encode($response);
+                    $error = "Sorry, your file was not uploaded.";
+                    echo $error;
                     break;
                 } else {
                     if (move_uploaded_file($_FILES['Product_Image']['tmp_name'], $file)) {
                         $imagePath = $file;
                     } else {
-                        $response = "Sorry, there was an error uploading your file.";
-                        echo json_encode($response);
+                        $error = "Sorry, there was an error uploading your file.";
+                        echo $error;
                         break;
                     }
                 }
@@ -102,5 +98,6 @@
                 $response = "Update Failed";
             }
             echo json_encode($response);
+            break;
     }
 ?>
