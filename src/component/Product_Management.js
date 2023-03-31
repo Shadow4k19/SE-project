@@ -47,8 +47,9 @@ export default function Product_management() {
     axios
       .post("http://localhost/php-react/React-api/Product.php", newProduct)
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         if (response.data === "Record Successfully") {
+          console.log(newProduct);
           alert("Add Success");
           setShowAddPopup(false);
           window.location.reload();
@@ -63,6 +64,7 @@ export default function Product_management() {
 
   const handleEditSubmit = (event) => {
     event.preventDefault();
+    //console.log(newProduct);
     axios
       .put(
         `http://localhost/php-react/React-api/Product.php?Product_ID=${newProduct.Product_ID}`,

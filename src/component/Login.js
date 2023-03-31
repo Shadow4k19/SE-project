@@ -7,7 +7,10 @@ import "../login.css";
 export default function Login() {
   const [showLogin, setShowLogin] = useState(true);
   const [statuslogin,setstatuslogin] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  let Username = "";
+  let role = "";
+  console.log(Username);
+  console.log(role);
   const user = new User();
   const toggleForm = () => {
     setShowLogin((prevShowLogin) => !prevShowLogin);
@@ -19,7 +22,7 @@ export default function Login() {
     email: "",
   });
 
-  const navigate = useNavigate(); // Create history object
+  const navigate = useNavigate();
 
   const submitFormLogin = (e) => {
     e.preventDefault();
@@ -35,7 +38,10 @@ export default function Login() {
           alert("Login successful");
           user.setUsername(data.username);
           user.setLoginStatus(true);
-          console.log(user.getStatus());
+          Username = data.username;
+          role = "User";
+          setstatuslogin(true);
+          //console.log(user.getStatus());
           console.log(statuslogin);
           navigate(`/`);
         } else {

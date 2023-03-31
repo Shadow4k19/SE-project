@@ -47,4 +47,17 @@ header{
 .Link{
     color: #fff;
 }
-
+.pmanage{
+    color: #fff;
+    font-size: small;
+}
+.icon{
+    top: 5px;
+    right: 7px;
+    font-size: .7em;
+    line-height: 20px;
+    cursor: pointer;
+}
+i{
+    color: #fff;
+}
