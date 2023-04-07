@@ -1,22 +1,24 @@
-export default class User{
-    Username = "";
-    LoginStatus = false;
-    constructor(){
+export default class User {
+    constructor() {
         localStorage.getItem("username");
         localStorage.getItem("status");
     }
     setUsername(Username) {
-        this.Username = Username;
-        localStorage.setItem('username',this.Username);
+        localStorage.setItem('username', Username);
     }
-    setLoginStatus(Status){
-        this.LoginStatus = Status;
-        localStorage.setItem('status',this.Status);
+    setLoginStatus(Status) {
+        localStorage.setItem('status', Status);
+        //console.log("set already");
     }
-    getUsername(){
-        return this.Username;
+    getUsername() {
+        return localStorage.getItem("username");
     }
-    getStatus(){
-        return this.LoginStatus;
+    getStatus() {
+        return localStorage.getItem("status");
+    }
+    deleteUser() {
+        localStorage.removeItem('username');
+        this.setLoginStatus(false);
+        //console.log("already logout");
     }
 }

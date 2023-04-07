@@ -13,15 +13,15 @@ export default function ShoppingCartComponent() {
 
   const clearCart = () => {
     const confirmed = window.confirm(
-        `Are you sure you want buy?`
+      `Are you sure you want buy?`
     );
-    if(confirmed){
-        const shoppingCart = new ShoppingCart();
-        shoppingCart.clearCart();
-        setCart(shoppingCart.getCart());
+    if (confirmed) {
+      const shoppingCart = new ShoppingCart();
+      shoppingCart.clearCart();
+      setCart(shoppingCart.getCart());
     }
   };
-  
+
   const increase = (productId) => {
     const newCart = [...cart];
     const selectedProduct = newCart.find((product) => product.Product_ID === productId);
@@ -29,8 +29,8 @@ export default function ShoppingCartComponent() {
       selectedProduct.quantity++;
       setCart(newCart);
     }
-    else{
-        alert("Product Remaining not enough");
+    else {
+      alert("Product Remaining not enough");
     }
   };
 
@@ -40,15 +40,15 @@ export default function ShoppingCartComponent() {
     if (selectedProduct.quantity > 1) {
       selectedProduct.quantity--;
       setCart(newCart);
-    }else{
-        alert("Already lowest product quantity");
+    } else {
+      alert("Already lowest product quantity");
     }
   };
-  
+
   return (
     <div className="container-cart">
       <h1>Shopping Cart</h1>
-      <table>
+      <table className="table-cart">
         <thead>
           <tr>
             <th>Product Name</th>
@@ -64,8 +64,8 @@ export default function ShoppingCartComponent() {
               <td>{product.Product_Price}</td>
               <td>{product.quantity}</td>
               <td>
-                <button className="btn-increase" onClick={() => increase(product.Product_ID)}>Increase</button>
-                <button className="btn-decrease" onClick={() => decrease(product.Product_ID)}>Decrease</button>
+                <button className="btn-increase" onClick={() => increase(product.Product_ID)}>+</button>
+                <button className="btn-decrease" onClick={() => decrease(product.Product_ID)}>-</button>
                 <button onClick={() => remove(product.Product_ID)}>Remove</button>
               </td>
             </tr>

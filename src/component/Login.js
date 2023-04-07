@@ -6,11 +6,6 @@ import "../login.css";
 
 export default function Login() {
   const [showLogin, setShowLogin] = useState(true);
-  const [statuslogin,setstatuslogin] = useState(false);
-  let Username = "";
-  let role = "";
-  console.log(Username);
-  console.log(role);
   const user = new User();
   const toggleForm = () => {
     setShowLogin((prevShowLogin) => !prevShowLogin);
@@ -34,19 +29,17 @@ export default function Login() {
     axios
       .post("http://localhost/php-react/Login-and-Register/Login.php", sendData)
       .then((response) => {
-        if(response.data === 200){ 
+        if (response.data === 200) {
           alert("Login successful");
           user.setUsername(data.username);
-          user.setLoginStatus(true);
-          Username = data.username;
-          role = "User";
-          setstatuslogin(true);
+          user.setLoginStatus("true");
           //console.log(user.getStatus());
-          console.log(statuslogin);
+          //console.log(statuslogin);
           navigate(`/`);
+          window.location.reload();
         } else {
-          console.log(typeof(response.data));
-          alert("Wrong Username or Password"); 
+          console.log(typeof (response.data));
+          alert("Wrong Username or Password");
         }
       })
       .catch((error) => {
@@ -69,15 +62,15 @@ export default function Login() {
       )
       .then((response) => {
         console.log(response.data);
-        if(response.data === "Sucess"){
+        if (response.data === "Sucess") {
           toggleForm();
           alert("Registration successful");
           window.location.reload();
-        }else if(response.data === "Email already  exists"){
+        } else if (response.data === "Email already  exists") {
           alert("Email already exists");
-        }else if(response.data === "Username already exists"){
+        } else if (response.data === "Username already exists") {
           alert("Username already exists");
-        }else{
+        } else {
           alert("Email or Username already exists");
         }
       })
@@ -85,7 +78,7 @@ export default function Login() {
         console.log(error);
       });
   };
-  
+
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -141,65 +134,65 @@ export default function Login() {
           </div>
         ) : (
           <div className="form-box register">
-          <h2>Register</h2>
-          <form onSubmit={submitFormRegister}>
-            <div className="input-box">
-              <span className="icon">
-                <i className="bi bi-person"></i>
-              </span>
-              <input
-                type="text"
-                name="username"
-                required
-                onChange={handleChange}
-                value={data.username}
-              />
-              <label>Username</label>
+            <h2>Register</h2>
+            <form onSubmit={submitFormRegister}>
+              <div className="input-box">
+                <span className="icon">
+                  <i className="bi bi-person"></i>
+                </span>
+                <input
+                  type="text"
+                  name="username"
+                  required
+                  onChange={handleChange}
+                  value={data.username}
+                />
+                <label>Username</label>
+              </div>
+              <div className="input-box">
+                <span className="icon">
+                  <i className="bi bi-lock"></i>
+                </span>
+                <input
+                  type="password"
+                  name="password"
+                  required
+                  onChange={handleChange}
+                  value={data.password}
+                />
+                <label>Password</label>
+              </div>
+              <div className="input-box">
+                <span className="icon">
+                  <i className="bi bi-envelope-fill"></i>
+                </span>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  onChange={handleChange}
+                  value={data.email}
+                />
+                <label>E-mail</label>
+              </div>
+              <div className="btnlog">
+                <button className="btnlogin" name="register">
+                  Register
+                </button>
+              </div>
+            </form>
+            <div className="login-register">
+              <p>
+                Already have an account?
+                <a href="#login" onClick={toggleForm}>
+                  Login
+                </a>
+              </p>
             </div>
-            <div className="input-box">
-              <span className="icon">
-                <i className="bi bi-lock"></i>
-              </span>
-              <input
-                type="password"
-                name="password"
-                required
-                onChange={handleChange}
-                value={data.password}
-              />
-              <label>Password</label>
-            </div>
-            <div className="input-box">
-              <span className="icon">
-                <i className="bi bi-envelope-fill"></i>
-              </span>
-              <input
-                type="email"
-                name="email"
-                required
-                onChange={handleChange}
-                value={data.email}
-              />
-              <label>E-mail</label>
-            </div>
-            <div className="btnlog">
-              <button className="btnlogin" name="register">
-                Register
-              </button>
-            </div>
-          </form>
-          <div className="login-register">
-            <p>
-              Already have an account?
-              <a href="#login" onClick={toggleForm}>
-                Login
-              </a>
-            </p>
           </div>
-        </div>
         )}
-          </div>
-          </div>
+      </div>
+    </div>
   )
 }
-          
+

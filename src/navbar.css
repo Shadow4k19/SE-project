@@ -6,7 +6,7 @@
 }
 
 header{
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0px;
     width: 100%;
@@ -47,9 +47,9 @@ header{
 .Link{
     color: #fff;
 }
-.pmanage{
+.manage{
     color: #fff;
-    font-size: small;
+    font-size: 12px;
 }
 .icon{
     top: 5px;

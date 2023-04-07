@@ -25,26 +25,24 @@ export default function Home() {
 
   return (
     <div className="container-home">
-      <h1>Welcome to our online market</h1>
-      <div className="card">
-        {products.map((product) => (
-          <div key={product.Product_ID}>
-            <div>
-              <img src={product.Product_Image} alt={product.Product_Name} />
+      {products.length > 0 && (
+        <div className="card">
+          {products.map((product) => (
+            <div key={product.Product_ID}>
+              <img src={`./Upload/Lay.jpg`} alt={product.Product_Name} />
               <div>
                 <h5>{product.Product_Name}</h5>
-                <p>
-                  <h5>{product.Product_Detail}</h5>
-                </p>
+                <p>{product.Product_Detail}</p>
                 <h6>{product.Product_Price}</h6>
                 <button onClick={() => handleAddToCart(product)}>
                   Add to Cart
                 </button>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
+      {products.length === 0 && <p className="text-empty">Product is empty</p>}
     </div>
   );
 }

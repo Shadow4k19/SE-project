@@ -1,27 +1,27 @@
 [
     {
-        "title" : "Home",
-        "icon" : "bi-house-fill",
-        "path" : "/"
+        "title": "Home",
+        "icon": "bi-house-fill",
+        "path": "/"
     },
     {
-        "title":"เครื่องดื่ม" ,
-        "icon":"bi-cup-straw",
+        "title": "เครื่องดื่ม",
+        "icon": "bi-cup-straw",
         "path": "/Drink"
     },
     {
-        "title":"อาหาร" ,
-        "icon":"bi-egg-fried",
+        "title": "อาหาร",
+        "icon": "bi-egg-fried",
         "path": "/Food"
     },
     {
-        "title":"อื่นๆ" ,
-        "icon":"bi-box-seam",
+        "title": "อื่นๆ",
+        "icon": "bi-box-seam",
         "path": "/other"
     },
     {
-        "title":"Q&A" ,
-        "icon":"bi-question-circle",
+        "title": "Q&A",
+        "icon": "bi-question-circle",
         "path": "/q&a"
     }
 ]

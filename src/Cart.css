@@ -1,19 +1,24 @@
-.container-cart{
+.container-cart {
     color: black;
     padding-top: 1%;
     padding-left: 15%;
 }
-.text{
-    padding-left: 30%;
+
+.text {
+    padding-left: 38%;
 }
 
-.btn-increase{
+.btn-increase {
     background-color: red;
     color: #fff;
-    padding: 2%;
+    padding: 3%;
 }
 
-.btn-decrease{
+.btn-decrease {
     background-color: pink;
-    padding: 2%;
+    padding: 3%;
+}
+
+.table-cart{
+    width: 900px;
 }

@@ -1,40 +1,40 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../navbar.css";
+import User from "./User";
 import Login from "./Login";
 
 export default function Navbar() {
-  const [statuslogin, setStatusLogin] = useState(false);
+  const user = new User();
 
   function checkStatus() {
-    if (statuslogin === false) {
-      setStatusLogin(true);
-      Login.setstatuslogin(true);
-      console.log(Login.statuslogin);
+    if (user.getStatus() === 'true') {
+      user.deleteUser();
+      window.location.reload();
     } else {
-      setStatusLogin(false);
-      Login.setstatuslogin(false);
-      console.log(Login.statuslogin);
+      user.getStatus();
+      console.log("Mai ru");
+      window.location.reload();
     }
   }
 
   let button;
-  if (statuslogin) {
-    if(Login.role !== "User" || Login.role !== ""){
-    button = (
-      <>
-        <Link classname = "pmanage" to="/product-management">Management</Link>
-        <Link to="/cart">
-          <span className="icon">
-            <i className="bi bi-cart"></i>
-          </span>
-        </Link>
-        <button className="btnLogin" onClick={checkStatus}>
-          Logout
-        </button>
-      </>
-    );
-    }else{
+  if (user.getStatus() !== 'false') {
+    if (Login.role !== "User" || Login.role !== "") {
+      button = (
+        <>
+          <Link classname="manage" to="/product-management">Management</Link>
+          <Link to="/cart">
+            <span className="icon">
+              <i className="bi bi-cart"></i>
+            </span>
+          </Link>
+          <button className="btnLogin" onClick={checkStatus}>
+            Logout
+          </button>
+        </>
+      );
+    } else {
       button = (
         <>
           <Link to="/cart">
@@ -48,12 +48,15 @@ export default function Navbar() {
         </>
       );
     }
+    console.log(user.getStatus());
   } else {
     button = (
       <>
-        <span className="icon">
-          <i className="bi bi-cart"></i>
-        </span>
+        <Link to="/cart">
+          <span className="icon">
+            <i className="bi bi-cart"></i>
+          </span>
+        </Link>
         <button className="btnLogin" onClick={checkStatus}>
           <Link to="/login" className="Link">
             Login
