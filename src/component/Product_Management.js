@@ -13,6 +13,7 @@ export default function Product_management() {
     Product_Price: "",
     Product_Remaining: "",
     Product_Image: null,
+    Type_product: ""
   });
 
   const handleAddPopup = () => {
@@ -42,18 +43,15 @@ export default function Product_management() {
       ...prevState,
       [name]: value,
     }));
-    console.log(newProduct);
   };
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
     setNewProduct(prevState => ({ ...prevState, Product_Image: file }));
-    console.log(newProduct);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    //console.log(newProduct+"new");
     const formData = new FormData();
     console.log(formData);
     formData.append("Product_Name", newProduct.Product_Name);
@@ -61,9 +59,10 @@ export default function Product_management() {
     formData.append("Product_Price", newProduct.Product_Price);
     formData.append("Product_Remaining", newProduct.Product_Remaining);
     formData.append("Product_Image", newProduct.Product_Image);
+    formData.append("Type_product", newProduct.Type_product);
 
     axios
-      .post("http://localhost/php-react/React-api/Product.php", formData)
+      .post("http://localhost/php-react/Login-and-Register/Product.php", formData)
       .then((response) => {
         if (response.data === "Record Successfully") {
           alert("Add Success");
@@ -71,7 +70,7 @@ export default function Product_management() {
           window.location.reload();
         } else {
           console.log(response.data);
-          alert("Add Failed"+response.data);
+          alert("Add Failed" + response.data);
         }
       })
       .catch((error) => {
@@ -82,19 +81,19 @@ export default function Product_management() {
 
   const handleEditSubmit = (event) => {
     event.preventDefault();
-    //console.log(newProduct);
     axios
       .put(
-        `http://localhost/php-react/React-api/Product.php?Product_ID=${newProduct.Product_ID}`,
+        `http://localhost/php-react/Login-and-Register/Product.php?Product_ID=${newProduct.Product_ID}`,
         newProduct
       )
       .then((response) => {
-        console.log(response.data);
         if (response.data === "Record Updated Successfully") {
+          console.log(response.data);
           alert("Update Success");
           setShowEditPopup(false);
           window.location.reload();
         } else {
+          console.log(response.data);
           alert("Update Failed");
         }
       })
@@ -111,7 +110,7 @@ export default function Product_management() {
     if (confirmed) {
       axios
         .delete(
-          `http://localhost/php-react/React-api/Product.php?Product_ID=${product.Product_ID}`
+          `http://localhost/php-react/Login-and-Register/Product.php?Product_ID=${product.Product_ID}`
         )
         .then((response) => {
           console.log(response.data);
@@ -130,7 +129,7 @@ export default function Product_management() {
 
   useEffect(() => {
     axios
-      .get("http://localhost/php-react/React-api/Product.php")
+      .get("http://localhost/php-react/Login-and-Register/Product.php")
       .then((response) => {
         //console.log(response.data);
         setProducts(response.data);
@@ -141,45 +140,45 @@ export default function Product_management() {
   }, []);
   return (
     <div className="contrainer-over">
-  <div className="contrainer-manage">
-    <button className="btnadd" onClick={handleAddPopup}>
-      +Add
-    </button>
-    <table className="table-manage">
-      <thead>
-        <tr>
-          <th align="center">ID</th>
-          <th align="center">Product Name</th>
-          <th align="center">Product Detail</th>
-          <th align="center">Price</th>
-          <th align="center">Remaining</th>
-          <th align="center">Action</th>
-        </tr>
-      </thead>
-      {products.length > 0 && (
-        <tbody>
-          {products.map((product) => (
-            <tr key={product.Product_ID}>
-              <td>{product.Product_ID}</td>
-              <td>{product.Product_Name}</td>
-              <td>{product.Product_Detail}</td>
-              <td>{product.Product_Price}</td>
-              <td>{product.Product_Remaining}</td>
-              <td>
-                <button className="btnedit" onClick={() => handleEditPopup(product)}>Edit</button>
-                <button className="btndel" onClick={() => handleDelete(product)}>Delete</button>
-              </td>
+      <div className="contrainer-manage">
+        <button className="btnadd" onClick={handleAddPopup}>
+          +Add
+        </button>
+        <table className="table-manage">
+          <thead>
+            <tr>
+              <th align="center">ID</th>
+              <th align="center">Product Name</th>
+              <th align="center">Product Detail</th>
+              <th align="center">Price</th>
+              <th align="center">Remaining</th>
+              <th align="center">Action</th>
             </tr>
-          ))}
-        </tbody>
-      )}{products.length === 0 && <p className="text">Product is empty</p>}
-    </table>
-  </div>
+          </thead>
+          {products.length > 0 && (
+            <tbody>
+              {products.map((product) => (
+                <tr key={product.Product_ID}>
+                  <td>{product.Product_ID}</td>
+                  <td>{product.Product_Name}</td>
+                  <td>{product.Product_Detail}</td>
+                  <td>{product.Product_Price}</td>
+                  <td>{product.Product_Remaining}</td>
+                  <td>
+                    <button className="btnedit" onClick={() => handleEditPopup(product)}>Edit</button>
+                    <button className="btndel" onClick={() => handleDelete(product)}>Delete</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          )}{products.length === 0 && <p className="text">Product is empty</p>}
+        </table>
+      </div>
       {showAddPopup && (
         <div className="popup">
           <div className="popup-content">
             <form onSubmit={handleSubmit}>
-              <h3>Add Product</h3>
+              <h4 className="text-manage">Add Product</h4>
               <label>Product Name</label>
               <input
                 type="text"
@@ -220,7 +219,42 @@ export default function Product_management() {
                 onChange={handleFileInputChange}
                 required
               />
-
+              <label>Type of Product</label>
+              <div className="radio-buttons">
+                <label>
+                  <input
+                    type="radio"
+                    name="Type_product"
+                    value="food"
+                    checked={newProduct.Type_product === "food"}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  Food
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="Type_product"
+                    value="drink"
+                    checked={newProduct.Type_product === "drink"}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  Drink
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="Type_product"
+                    value="other"
+                    checked={newProduct.Type_product === "other"}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  Other
+                </label>
+              </div>
               <button type="submit">Add</button>
               <button type="button" onClick={handleClosePopup}>
                 Cancel
@@ -233,7 +267,7 @@ export default function Product_management() {
         <div className="popup">
           <div className="popup-content">
             <form onSubmit={handleEditSubmit}>
-              <h4>Edit Product</h4>
+              <h4 className="text-manage">Edit Product</h4>
               <input type="hidden" name="Product_ID" value={newProduct.Product_ID} />
               <label>Product Name</label>
               <input
@@ -267,6 +301,42 @@ export default function Product_management() {
                 onChange={handleInputChange}
                 required
               />
+              <label>Type of Product</label>
+              <div className="radio-buttons">
+                <label>
+                  <input
+                    type="radio"
+                    name="Type_product"
+                    value="food"
+                    checked={newProduct.Type_product === "food"}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  Food
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="Type_product"
+                    value="drink"
+                    checked={newProduct.Type_product === "drink"}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  Drink
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="Type_product"
+                    value="other"
+                    checked={newProduct.Type_product === "other"}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  Other
+                </label>
+              </div>
               <button type="submit">Update</button>
               <button type="button" onClick={handleEditClosePopup}>
                 Cancel

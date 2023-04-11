@@ -1,24 +1,64 @@
-export default class User {
+class User {
+    static instance = null;
+  
     constructor() {
-        localStorage.getItem("username");
-        localStorage.getItem("status");
+      if (User.instance) {
+        throw new Error('Only one instance of User is allowed');
+      }
+  
+      this.setUserFromStorage();
+  
+      User.instance = this;
     }
-    setUsername(Username) {
-        localStorage.setItem('username', Username);
+  
+    setUserFromStorage() {
+      this.setUsername(localStorage.getItem('username'));
+      this.setLoginStatus(localStorage.getItem('status'));
+      this.setUserrole(localStorage.getItem('userrole'));
+      this.setUserid(localStorage.getItem('user_id'));
     }
-    setLoginStatus(Status) {
-        localStorage.setItem('status', Status);
-        //console.log("set already");
+  
+    setUsername(username) {
+      localStorage.setItem('username', username);
     }
+  
+    setLoginStatus(status) {
+      localStorage.setItem('status', status);
+    }
+  
+    setUserrole(userrole) {
+      localStorage.setItem('userrole', userrole);
+    }
+  
+    setUserid(userid) {
+      localStorage.setItem('user_id', userid);
+    }
+  
+    getUserrole() {
+      return localStorage.getItem('userrole');
+    }
+  
+    getUserid() {
+      return localStorage.getItem('user_id');
+    }
+  
     getUsername() {
-        return localStorage.getItem("username");
+      return localStorage.getItem('username');
     }
+  
     getStatus() {
-        return localStorage.getItem("status");
+      return localStorage.getItem('status');
     }
+  
     deleteUser() {
-        localStorage.removeItem('username');
-        this.setLoginStatus(false);
-        //console.log("already logout");
+      localStorage.removeItem('username');
+      this.setLoginStatus(false);
+      localStorage.removeItem('user_id');
+      localStorage.removeItem('userrole');
     }
-}
+  }
+  
+  const userInstance = new User();
+  
+  export default userInstance;
+  

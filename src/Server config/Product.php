@@ -6,7 +6,7 @@
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
     session_start();
-    require_once "D:\kong game\Database\htdocs\php-react\Login-and-Register\Server.php";
+    require_once "Server.php";
 
     $method = $_SERVER['REQUEST_METHOD'];
 
@@ -55,7 +55,7 @@
             $product_detail = $_POST['Product_Detail'];
             try{
             if(isset($_FILES['Product_Image'])) {
-                $path = "Upload/";
+                $path = "D:/โหลดคลิปคิดเวลา/SE/SE program/my-app/public/Upload/";
                 $file = $path . basename($_FILES['Product_Image']['name']);
                 $uploadOk = 1;
                 $imageFileType = strtolower(pathinfo($file,PATHINFO_EXTENSION));
@@ -93,7 +93,7 @@
                     break;
                 } else {
                     if (move_uploaded_file($_FILES['Product_Image']['tmp_name'], $file)) {
-                        $imagePath = $file;
+                        $imagePath = basename($_FILES['Product_Image']['name']);
                     } else {
                         $error = "Sorry, there was an error uploading your file.";
                         echo $error;
@@ -176,12 +176,13 @@
                     } else {
                         $imagePath = $productdata->Product_Image;
                     }*/
-                    $sql = "UPDATE products SET Product_Name=:name, Product_Price=:price, Product_Remaining=:remain, Product_Detail=:detail WHERE Product_ID=:product_id";
+                    $sql = "UPDATE products SET Product_Name=:name, Product_Price=:price, Product_Remaining=:remain, Product_Detail=:detail ,Type_product= :type_p WHERE Product_ID=:product_id";
                     $stmt = $pdo->prepare($sql);
                     $stmt->bindParam(':name', $productdata->Product_Name);
                     $stmt->bindParam(':price', $productdata->Product_Price);
                     $stmt->bindParam(':remain', $productdata->Product_Remaining);
                     $stmt->bindParam(':detail', $productdata->Product_Detail);
+                    $stmt->bindParam(':type_p',$productdata->Type_product);
                     //$stmt->bindParam(':image', $imagePath);
                     $stmt->bindParam(':product_id', $product_id);
                     $stmt->execute();
@@ -212,4 +213,3 @@
             break;
     }
 ?>
-

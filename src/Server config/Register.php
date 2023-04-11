@@ -12,7 +12,6 @@ if(isset($data->username) && isset($data->password) && isset($data->email)) {
   $password = $data->password;
   $email = $data->email;
 
-  // Connect to the database
   session_start();
   require_once "Server.php";
 
@@ -28,18 +27,17 @@ if(isset($data->username) && isset($data->password) && isset($data->email)) {
     $row2 = $check_data2->fetch(PDO::FETCH_ASSOC);
   
     if($row == $email){
-      echo "Email Already exists";
+      echo json_encode("Email Already exists");
     }else if($row2 == $username){
-      echo "Username already exists";
+      echo json_encode("Username already exists");
     }else{
-      $passwordHash = password_hash($password, PASSWORD_DEFAULT);
       $stmt = $pdo->prepare("INSERT INTO login (Username, Password, Email) VALUES(:username , :password , :email)");
       $stmt->bindParam(":username", $username);
       $stmt->bindParam(":password", $password);
       $stmt->bindParam(":email", $email);
       $stmt->execute();
   
-      echo "Sucess";
+      echo json_encode("Sucess");
     }
   }catch(PDOException $e){
     echo json_encode(array("message" => "Failed to register user" ,"error"=> $e));
@@ -48,6 +46,6 @@ if(isset($data->username) && isset($data->password) && isset($data->email)) {
   $response = array("success" => false, "message" => "Missing username or password or email");
   echo json_encode($response);
 }
-// Close the database connection
+
 $pdo = null;
 ?>

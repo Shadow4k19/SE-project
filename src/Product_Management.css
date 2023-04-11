@@ -1,6 +1,6 @@
 .popup-content {
     width: 400px;
-    height: 650px;
+    height: 720px;
     background: transparent;
     border: 2px solid rgba(255, 255, 255, .5);
     border-radius: 20px;
@@ -80,9 +80,18 @@
     margin-top: 1rem;
 }
 
+.radio-buttons label {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.radio-buttons input[type="radio"] {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .table-manage {
     width: 900px;
-    height: 1200px;
 }
 
 .btnadd {
@@ -121,7 +130,7 @@ td {
     padding-left: 40%;
 }
 
-.contrainer-over{
+.contrainer-over {
     width: 900px;
 }
 

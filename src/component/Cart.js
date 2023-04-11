@@ -1,9 +1,18 @@
 import React, { useState } from "react";
 import ShoppingCart from "./Shopping_cart";
+import axios from "axios";
+import user from "./User.js";
 import '../Cart.css';
 
 export default function ShoppingCartComponent() {
   const [cart, setCart] = useState(new ShoppingCart().getCart());
+  const path = "cart";
+  let Total_price = 0;
+  const [paymentPopup, setPaymentPopup] = useState(false);
+
+  const handleEditClosePopup = () => {
+    setPaymentPopup(false);
+  };
 
   const remove = (productId) => {
     const shoppingCart = new ShoppingCart();
@@ -12,14 +21,35 @@ export default function ShoppingCartComponent() {
   };
 
   const clearCart = () => {
+    console.log(cart);
     const confirmed = window.confirm(
       `Are you sure you want buy?`
     );
-    if (confirmed) {
-      const shoppingCart = new ShoppingCart();
-      shoppingCart.clearCart();
-      setCart(shoppingCart.getCart());
+    if (confirmed && user.getStatus() === 'true') {
+      setPaymentPopup(true);
+      if (paymentPopup === false) {
+        axios
+          .post(
+            `http://localhost/php-react/Login-and-Register/Purchase.php?Cus_ID=${user.getUserid()}&Total_price=${Total_price}&path=${path}`, cart
+          )
+          .then((response) => {
+            if (response.data === "Purchase is success") {
+              alert("Purchase is success");
+            } else {
+              alert(response.data);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        const shoppingCart = new ShoppingCart();
+        shoppingCart.clearCart();
+        setCart(shoppingCart.getCart());
+      }
+    } else {
+      alert("You haven't login yet");
     }
+
   };
 
   const increase = (productId) => {
@@ -74,11 +104,19 @@ export default function ShoppingCartComponent() {
       </table>
       {cart.length > 0 && (
         <div>
-          <p className="text">Total: {cart.reduce((total, product) => total + product.Product_Price * product.quantity, 0)} Baht</p>
+          <p className="text-cart">Total: {Total_price = cart.reduce((total, product) => total + product.Product_Price * product.quantity, 0)} Baht</p>
           <button onClick={clearCart}>Purchase</button>
         </div>
       )}
-      {cart.length === 0 && <p className="text">Your cart is empty</p>}
+      {cart.length === 0 && <p className="text-empty">Your cart is empty</p>}
+      {paymentPopup && (
+        <div className="popup-payment">
+          <div className="popup-content-payment">
+            <img src="./Upload/Payment.jpg" style={{ width: "400px", height: "400px", marginLeft: "10%" }} alt=""></img>
+            <button className="btnedit" onClick={handleEditClosePopup}>Submit</button>
+          </div>
+        </div >
+      )}
     </div>
   );
 }

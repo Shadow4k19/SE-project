@@ -10,9 +10,8 @@ export default function Other() {
 
     useEffect(() => {
         axios
-            .get(`http://localhost/php-react/React-api/Product.php/${path}`)
+            .get(`http://localhost/php-react/Login-and-Register/Product.php/${path}`)
             .then((response) => {
-                //console.log(response.data);
                 setProducts(response.data);
             })
             .catch((error) => {
@@ -30,7 +29,7 @@ export default function Other() {
                 <div className="card">
                     {products.map((product) => (
                         <div key={product.Product_ID}>
-                            <img src={product.Product_Image} alt={product.Product_Name} />
+                            <img src={`./Upload/`+product.Product_Image} alt={product.Product_Name} />
                             <div>
                                 <h5>{product.Product_Name}</h5>
                                 <p>{product.Product_Detail}</p>

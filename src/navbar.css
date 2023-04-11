@@ -1,11 +1,11 @@
-*{
+* {
     margin: 0;
-    padding: left 100px; 
+    padding: left 100px;
     font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
 }
 
-header{
+header {
     position: absolute;
     top: 0;
     left: 0px;
@@ -16,13 +16,13 @@ header{
     justify-content: space-between;
 }
 
-.logo{
+.logo {
     padding-left: 39%;
     font-size: 1em;
-    color:#fff;
+    color: #fff;
 }
 
-.btnLogin{
+.btnLogin {
     padding: 10px;
     width: 130px;
     height: 50px;
@@ -39,25 +39,53 @@ header{
     font-size: large;
 }
 
-.btnLogin:hover{
+.btnLogin:hover {
     background: #fff;
     color: rgba(255, 255, 255, .25);
 }
 
-.Link{
-    color: #fff;
-}
-.manage{
-    color: #fff;
-    font-size: 12px;
-}
-.icon{
+.icon {
     top: 5px;
     right: 7px;
-    font-size: .7em;
+    font-size: 1.4em;
     line-height: 20px;
     cursor: pointer;
 }
-i{
+
+i {
     color: #fff;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    margin-right: 1rem;
+    color: #fff;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+nav .manage {
+    margin-top: 1rem;
+    font-size: 28px;
+}
+
+nav .icon {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+}
+nav .btnLogin {
+    margin-left: 0;
+}
+
+nav .btnLogin-l{
+    font-size: 1.1em;
+    font-weight: 500;
+    margin-left: 17px;
 }

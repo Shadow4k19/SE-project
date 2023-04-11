@@ -1,0 +1,10 @@
+.contrainer{
+    position: relative;
+    margin-left: 21%;
+    margin-top: 8%;
+}
+
+h1,
+h6{
+    font-size: 30px;
+}

@@ -1,12 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
-import User from "./User";
+import user from "./User.js";
 import { useNavigate } from "react-router-dom";
 import "../login.css";
 
 export default function Login() {
   const [showLogin, setShowLogin] = useState(true);
-  const user = new User();
   const toggleForm = () => {
     setShowLogin((prevShowLogin) => !prevShowLogin);
   };
@@ -25,20 +24,19 @@ export default function Login() {
       username: data.username,
       password: data.password
     };
-    console.log(sendData);
     axios
       .post("http://localhost/php-react/Login-and-Register/Login.php", sendData)
       .then((response) => {
-        if (response.data === 200) {
+        if (response.data.status === '200') {
           alert("Login successful");
           user.setUsername(data.username);
           user.setLoginStatus("true");
-          //console.log(user.getStatus());
-          //console.log(statuslogin);
+          user.setUserid(response.data.user_id);
+          user.setUserrole(response.data.user_role);
           navigate(`/`);
           window.location.reload();
         } else {
-          console.log(typeof (response.data));
+          console.log(response.data);
           alert("Wrong Username or Password");
         }
       })
@@ -54,14 +52,12 @@ export default function Login() {
       password: data.password,
       email: data.email
     };
-    console.log(sendData);
     axios
       .post(
         "http://localhost/php-react/Login-and-Register/Register.php",
         sendData
       )
       .then((response) => {
-        console.log(response.data);
         if (response.data === "Sucess") {
           toggleForm();
           alert("Registration successful");

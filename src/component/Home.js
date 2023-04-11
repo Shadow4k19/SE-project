@@ -9,9 +9,8 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get("http://localhost/php-react/React-api/Product.php")
+      .get("http://localhost/php-react/Login-and-Register/Product.php")
       .then((response) => {
-        console.log(response.data);
         setProducts(response.data);
       })
       .catch((error) => {
@@ -29,7 +28,7 @@ export default function Home() {
         <div className="card">
           {products.map((product) => (
             <div key={product.Product_ID}>
-              <img src={`./Upload/Lay.jpg`} alt={product.Product_Name} />
+              <img src={`./Upload/`+ product.Product_Image} alt={product.Product_Name} />
               <div>
                 <h5>{product.Product_Name}</h5>
                 <p>{product.Product_Detail}</p>

@@ -1,29 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "../navbar.css";
-import User from "./User";
-import Login from "./Login";
+import userInstance from "./User.js";
 
 export default function Navbar() {
-  const user = new User();
-
   function checkStatus() {
-    if (user.getStatus() === 'true') {
-      user.deleteUser();
+    if (userInstance.getStatus() === 'true') {
+      userInstance.deleteUser();
       window.location.reload();
     } else {
-      user.getStatus();
-      console.log("Mai ru");
       window.location.reload();
     }
   }
 
   let button;
-  if (user.getStatus() !== 'false') {
-    if (Login.role !== "User" || Login.role !== "") {
+  if (userInstance.getStatus() !== 'false') {
+    if (userInstance.getUserrole() === "admin") {
       button = (
         <>
-          <Link classname="manage" to="/product-management">Management</Link>
+          <Link className="manage" to="/history">History</Link>
+          <Link className="manage" to="/order">Order</Link>
+          <Link className="manage" to="/product-management">Manage</Link>
           <Link to="/cart">
             <span className="icon">
               <i className="bi bi-cart"></i>
@@ -37,6 +34,7 @@ export default function Navbar() {
     } else {
       button = (
         <>
+          <Link className="manage" to="/history">History</Link>
           <Link to="/cart">
             <span className="icon">
               <i className="bi bi-cart"></i>
@@ -48,7 +46,6 @@ export default function Navbar() {
         </>
       );
     }
-    console.log(user.getStatus());
   } else {
     button = (
       <>
@@ -58,7 +55,7 @@ export default function Navbar() {
           </span>
         </Link>
         <button className="btnLogin" onClick={checkStatus}>
-          <Link to="/login" className="Link">
+          <Link to="/login" className="btnLogin-l">
             Login
           </Link>
         </button>
